@@ -1,6 +1,7 @@
 import sys
 import numpy as np
 
+
 def is_integer_header(tokens):
     try:
         ints = [int(t) for t in tokens]
@@ -59,6 +60,16 @@ def get_new_order(M):
     return np.argmax(np.abs(M), axis=0)
 
 
+def validate_permutation(order, N):
+    order_list = list(order)
+    unique = set(order_list)
+
+    missing = sorted(set(range(N)) - unique)
+    duplicates = sorted([x for x in unique if order_list.count(x) > 1])
+
+    return missing, duplicates
+
+
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: python new_order.py <ezfcf_output.txt>")
@@ -71,3 +82,17 @@ if __name__ == "__main__":
 
     print("New mode order:")
     print(" ".join(str(i) for i in new_order))
+
+    # 🔍 Validation step
+    N = M.shape[0]
+    missing, duplicates = validate_permutation(new_order, N)
+
+    if not missing and not duplicates:
+        print("\n✔ Mode mapping is a valid one-to-one permutation.")
+    else:
+        print("\n⚠ WARNING: Mode mapping is NOT a proper permutation!")
+
+        if missing:
+            print("Missing indices:", " ".join(str(i) for i in missing))
+        if duplicates:
+            print("Repeated indices:", " ".join(str(i) for i in duplicates))
