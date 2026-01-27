@@ -6,3 +6,9 @@ run python new_order.py *.txt, then u get new order, follow Dr. Krylov's manual 
 
 
 For dicussion/code modification, d05223110@ntu.edu.tw
+
+2026, Jan. 28, I noticed repeat numbering emerged sometimes. Updated code show repeated/missing numbers as well.
+Maunally chk the repeating ones, lock into the repeated number of a specific column, and see if the missing number on the column always sharing comparable overlap.
+If yes, change the repeated number to the missing number.
+
+Sometimes more than one repeating/missing are presented. Chk the overlaps, should roughly work. I use excel to chk the *.txt btw., easier to locate the root.
